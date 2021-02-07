@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 
 To build this C program into WebAssembly app with libc-builtin, you can use this command:
 ``` bash
-/opt/wasi-sdk/bin/clang  --target=wasm32        \
+${WASI_SDK_DIR}/bin/clang  --target=wasm32        \
     --sysroot=${WAMR_ROOT}/wamr-sdk/app/libc-builtin-sysroot   \
     -O3 -pthread -nostdlib -z stack-size=32768      \
     -Wl,--shared-memory             \
@@ -59,18 +59,18 @@ You can also build this program with WASI, but we need to make some changes to w
 
 1. disable malloc/free of wasi if the wasi-sdk version is smaller than wasi-sdk-12.0 (not include 12.0), as they don't support shared memory:
     ``` bash
-    /opt/wasi-sdk/bin/llvm-ar -d /opt/wasi-sdk/share/wasi-sysroot/lib/wasm32-wasi/libc.a dlmalloc.o
+    ${WASI_SDK_DIR}/bin/llvm-ar -d ${WASI_SDK_DIR}share/wasi-sysroot/lib/wasm32-wasi/libc.a dlmalloc.o
     ```
 2. copy the pthread.h to wasi-sysroot so the compiler can find it:
     ``` bash
-    cp ${WAMR_ROOT}/wamr-sdk/app/libc-builtin-sysroot/include/pthread.h /opt/wasi-sdk/share/wasi-sysroot/include
+    cp ${WAMR_ROOT}/wamr-sdk/app/libc-builtin-sysroot/include/pthread.h ${WASI_SDK_DIR}share/wasi-sysroot/include
     ```
 > Note: </br>
 >1. Remember to back up the original sysroot files
 
 Then build the program with this command:
 ``` bash
-/opt/wasi-sdk/bin/clang -pthread -O3                \
+${WASI_SDK_DIR}/bin/clang -pthread -O3                \
     -Wl,--shared-memory,--max-memory=196608         \
     -Wl,--allow-undefined,--no-check-features       \
     -Wl,--export=__heap_base,--export=__data_end    \

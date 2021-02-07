@@ -283,7 +283,7 @@ init_args.max_thread_num = THREAD_NUM;
 **Note2: The wasm application should be built with `--shared-memory` and `-pthread` enabled:**
 
 ```bash
-  /opt/wasi-sdk/bin/clang -o test.wasm test.c -nostdlib -pthread    \
+  ${WASI_SDK_DIR}/bin/clang -o test.wasm test.c -nostdlib -pthread    \
     -Wl,--shared-memory,--max-memory=131072                         \
     -Wl,--no-entry,--export=__heap_base,--export=__data_end         \
     -Wl,--export=__wasm_call_ctors,--export=${your_func_name}

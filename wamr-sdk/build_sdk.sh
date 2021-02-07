@@ -63,9 +63,14 @@ do
     esac
 done
 
+echo "#####################detect wasi-sdk"
+if [ "$WASI_SDK_DIR" = "" ];then
+    echo "Please set wasi_sdk path onto WASI_SDK_DIR.\n"
+    exit 2
+fi
 
-if [ ! -f "/opt/wasi-sdk/bin/clang" ]; then
-        echo "Can't find wasi-sdk under /opt/wasi-sdk"
+if [ ! -f "$WASI_SDK_DIR/bin/clang" ]; then
+        echo "Can't find wasi-sdk under $WASI_SDK_DIR"
         echo "You can download wasi-sdk from here:"
         echo ""
         echo "https://github.com/CraneStation/wasi-sdk/releases/tag/wasi-sdk-7"
@@ -74,7 +79,6 @@ if [ ! -f "/opt/wasi-sdk/bin/clang" ]; then
         echo ""
         exit 1
 fi
-
 
 echo "download dependent external repositories.."
 ${wamr_root_dir}/core/deps/download.sh
@@ -190,10 +194,11 @@ if [ -n "$out" ]; then
 fi
 if [ "${LIBC_SUPPORT}" = "WASI" ]; then
     echo "using wasi toolchain"
-    cmake .. $CM_DEXTRA_SDK_INCLUDE_PATH -DWAMR_BUILD_SDK_PROFILE=${PROFILE}  -DCONFIG_PATH=${wamr_config_cmake_file}  -DCMAKE_TOOLCHAIN_FILE=../wasi_toolchain.cmake
+    cmake .. $CM_DEXTRA_SDK_INCLUDE_PATH -DWASI_SDK_DIR="${WASI_SDK_DIR}" -DWAMR_BUILD_SDK_PROFILE=${PROFILE}  -DCONFIG_PATH=${wamr_config_cmake_file}  -DCMAKE_TOOLCHAIN_FILE=../wasi_toolchain.cmake
 else
     echo "using builtin libc toolchain"
     cmake .. $CM_DEXTRA_SDK_INCLUDE_PATH \
+         -DWASI_SDK_DIR="${WASI_SDK_DIR}" \
          -DWAMR_BUILD_SDK_PROFILE=${PROFILE} \
          -DCONFIG_PATH=${wamr_config_cmake_file} \
          -DCMAKE_TOOLCHAIN_FILE=../wamr_toolchain.cmake
@@ -219,6 +224,7 @@ cd ${sdk_root}/runtime
 rm -fr build_runtime_sdk && mkdir build_runtime_sdk
 cd build_runtime_sdk
 cmake .. $CM_DEXTRA_SDK_INCLUDE_PATH \
+       -DWASI_SDK_DIR="${WASI_SDK_DIR}" \
        -DWAMR_BUILD_SDK_PROFILE=${PROFILE} \
        -DCONFIG_PATH=${wamr_config_cmake_file} \
        $CM_TOOLCHAIN $CM_BUILD_TYPE
