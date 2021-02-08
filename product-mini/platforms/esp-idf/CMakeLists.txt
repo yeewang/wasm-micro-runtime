@@ -11,6 +11,8 @@ enable_language (ASM)
 # Include for ESP-IDF build system functions
 include($ENV{IDF_PATH}/tools/cmake/idf.cmake)
 
+set(CMAKE_SYSTEM_NAME "Generic")
+
 # Create idf::esp32 and idf::freertos static libraries
 idf_build_process(esp32
                   # try and trim the build; additional components
