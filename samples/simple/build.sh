@@ -59,7 +59,6 @@ if [ "$CLEAN" = "TRUE" ]; then
     rm -rf $CURR_DIR/cmake_build
 fi
 
-
 while  [ ! -n "$PROFILE" ]
 do
     support_profiles=`ls -l "profiles/" |grep '^d' | awk '{print $9}'`
@@ -102,6 +101,12 @@ fi
 
 PROFILE="simple-$PROFILE"
 
+
+echo "#####################detect wasi-sdk"
+if [ "${WASI_SDK_DIR}" = "" ];then
+    echo "Please set wasi_sdk path onto WASI_SDK_DIR.\n"
+    exit 2
+fi
 
 echo "#####################build wamr sdk"
 cd ${WAMR_DIR}/wamr-sdk
@@ -146,7 +151,7 @@ do
 APP_SRC="$i"
 OUT_FILE=${i%.*}.wasm
 
-/opt/wasi-sdk/bin/clang                                              \
+${WASI_SDK_DIR}/bin/clang                                              \
         -I${WAMR_DIR}/wamr-sdk/out/$PROFILE/app-sdk/wamr-app-framework/include  \
         -L${WAMR_DIR}/wamr-sdk/out/$PROFILE/app-sdk/wamr-app-framework/lib      \
         -lapp_framework                                              \

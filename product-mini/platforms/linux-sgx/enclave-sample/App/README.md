@@ -26,7 +26,7 @@ cp ./libwamr-pal.so /usr/lib/libwamr-pal.so
 ## Build WAMR application
 
 As the prerequisite, please
-- refer to [this step](https://github.com/bytecodealliance/wasm-micro-runtime/blob/main/doc/build_wasm_app.md#prepare-wasm-building-environments) to install wasi-sdk. Note that the binaries of wasi-sdk must be installed at `/opt/wasi-sdk/bin/`.
+- refer to [this step](https://github.com/bytecodealliance/wasm-micro-runtime/blob/main/doc/build_wasm_app.md#prepare-wasm-building-environments) to install wasi-sdk. Note that the binaries of wasi-sdk must be installed at `${WASI_SDK_DIR}/bin/`.
 - refer to [this guide](https://github.com/bytecodealliance/wasm-micro-runtime#build-wamrc-aot-compiler) to generate wamrc AoT compiler.
 
 The sample WAMR application test.c is provided in [this guide](https://github.com/bytecodealliance/wasm-micro-runtime/blob/main/doc/build_wasm_app.md#build-wasm-applications). Don't forget to compile the `.wasm` file to `.aot` file:

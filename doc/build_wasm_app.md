@@ -45,12 +45,12 @@ int main(int argc, char **argv)
 To build the source file to WASM bytecode, we can input the following command:
 
 ``` Bash
-/opt/wasi-sdk/bin/clang -O3 -o test.wasm test.c
+${WASI_SDK_DIR}/bin/clang -O3 -o test.wasm test.c
 ```
 
 ## 1. wasi-sdk options
 
-There are some useful options which can be specified to build the source code (for more link options, please run `/opt/wasi-sdk/bin/wasm-ld --help`):
+There are some useful options which can be specified to build the source code (for more link options, please run `${WASI_SDK_DIR}/bin/wasm-ld --help`):
 
 - **-nostdlib** Do not use the standard system startup files or libraries when linking. In this mode, the **libc-builtin** library of WAMR must be built to run the wasm app, otherwise, the **libc-wasi** library must be built. You can specify **-DWAMR_BUILD_LIBC_BUILTIN=1** or **-DWAMR_BUILD_LIBC_WASI=1** for cmake to build WAMR with libc-builtin support or libc-wasi support.
 
@@ -79,7 +79,7 @@ There are some useful options which can be specified to build the source code (f
 For example, we can build the wasm app with command:
 
 ``` Bash
-/opt/wasi-sdk/bin/clang -O3 -nostdlib \
+${WASI_SDK_DIR}/bin/clang -O3 -nostdlib \
     -z stack-size=8192 -Wl,--initial-memory=65536 \
     -o test.wasm test.c \
     -Wl,--export=main -Wl,--export=__main_argc_argv \
@@ -91,7 +91,7 @@ to generate a wasm binary with nostdlib mode, auxiliary stack size is 8192 bytes
 If we want to build the wasm app with wasi mode, we may build the wasm app with command:
 
 ```bash
-/opt/wasi-sdk/bin/clang -O3 \
+${WASI_SDK_DIR}/bin/clang -O3 \
     -z stack-size=8192 -Wl,--initial-memory=65536 \
     -o test.wasm test.c \
     -Wl,--export=__heap_base -Wl,--export=__data_end \

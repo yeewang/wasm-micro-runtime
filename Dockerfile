@@ -8,7 +8,8 @@ FROM ubuntu:latest
 
 RUN apt-get update && \
   apt-get -y upgrade && \
-  apt-get install -y build-essential clang-8 cmake g++-multilib git lib32gcc-5-dev llvm-8 lld-8 nano
+  DEBIAN_FRONTEND="noninteractive" TZ="America/New_York" apt-get install -y tzdata && \
+  apt-get install -y build-essential clang-8 cmake g++-multilib git llvm-8 lld-8 nano
 
 WORKDIR /root
 

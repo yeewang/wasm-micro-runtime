@@ -1,7 +1,7 @@
 # Copyright (C) 2019 Intel Corporation.  All rights reserved.
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-CC = /opt/wasi-sdk/bin/clang
+CC = ${WASI_SDK_DIR}/bin/clang
 APP_DIR = ${shell pwd}
 IWASM_DIR = ../../../../core/iwasm
 APP_FRAMEWORK_DIR = ../../../../core/app-framework

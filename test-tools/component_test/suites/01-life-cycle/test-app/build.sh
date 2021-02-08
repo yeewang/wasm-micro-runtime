@@ -5,7 +5,7 @@
 
 . ../../../set_dev_env.sh
 
-CC=/opt/wasi-sdk/bin/clang
+CC=${WASI_SDK_DIR}/bin/clang
 APP_DIR=$PWD
 WAMR_DIR=${APP_DIR}/../../../../../
 SDK_DIR=${WAMR_DIR}/wamr-sdk/out/simple-host-interp
@@ -16,7 +16,7 @@ for i in `ls *.c`
 do
 APP_SRC="$i"
 OUT_FILE=${i%.*}.wasm
-/opt/wasi-sdk/bin/clang -O3 \
+${WASI_SDK_DIR}/bin/clang -O3 \
                         -Wno-int-conversion \
                         -I${APP_FRAMEWORK_DIR}/include \
                         -I${DEPS_DIR} \
