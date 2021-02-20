@@ -16,13 +16,22 @@ if (APPLE)
   add_definitions(-DBH_PLATFORM_DARWIN)
 endif ()
 
+set (WAMR_BUILD_TARGET "X86_64")
+#set (WAMR_BUILD_TARGET "AARCH64")
+
+# Specify the cross compiler
+if (WAMR_BUILD_TARGET STREQUAL "AARCH64")
+  SET(CMAKE_C_COMPILER   aarch64-linux-gnu-gcc)
+  SET(CMAKE_CXX_COMPILER aarch64-linux-gnu-g++)
+endif()
+
 # Reset default linker flags
 set (CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
 set (CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
 
 # WAMR features switch
-set (WAMR_BUILD_TARGET "X86_64")
-set(CMAKE_BUILD_TYPE Debug)
+
+set (CMAKE_BUILD_TYPE Debug)
 set (WAMR_BUILD_INTERP 1)
 set (WAMR_BUILD_AOT 1)
 set (WAMR_BUILD_JIT 0)
