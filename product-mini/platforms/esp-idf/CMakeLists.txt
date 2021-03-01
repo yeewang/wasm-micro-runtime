@@ -55,3 +55,4 @@ add_executable(${elf_file} main.c iwasm_main.c)
 # Link the static libraries to the executable
 target_link_libraries(${elf_file} idf::esp32 idf::freertos idf::spi_flash vmlib)
 
+message("target_link_libraries =" ${elf_file})

@@ -6,6 +6,7 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
+// clang-format off
 #if !defined(BUILD_TARGET_X86_64) \
     && !defined(BUILD_TARGET_AMD_64) \
     && !defined(BUILD_TARGET_AARCH64) \
@@ -20,6 +21,7 @@
     && !defined(BUILD_TARGET_RISCV64_LP64) \
     && !defined(BUILD_TARGET_RISCV32_ILP32D) \
     && !defined(BUILD_TARGET_RISCV32_ILP32)
+// clang-format on
 #if defined(__x86_64__) || defined(__x86_64)
 #define BUILD_TARGET_X86_64
 #elif defined(__amd64__) || defined(__amd64)
@@ -65,7 +67,7 @@
 #define WASM_ENABLE_AOT 0
 #endif
 
-#define AOT_MAGIC_NUMBER 0x746f6100
+#define AOT_MAGIC_NUMBER    0x746f6100
 #define AOT_CURRENT_VERSION 2
 
 #ifndef WASM_ENABLE_JIT
@@ -147,7 +149,7 @@
 
 #if WASM_ENABLE_FAST_INTERP != 0
 #define WASM_ENABLE_ABS_LABEL_ADDR 1
-#define WASM_DEBUG_PREPROCESSOR 0
+#define WASM_DEBUG_PREPROCESSOR    0
 #else
 #define WASM_ENABLE_ABS_LABEL_ADDR 0
 #endif
@@ -232,8 +234,8 @@
 
 /* Default min/max heap size of each app */
 #define APP_HEAP_SIZE_DEFAULT (8 * 1024)
-#define APP_HEAP_SIZE_MIN (256)
-#define APP_HEAP_SIZE_MAX (512 * 1024 * 1024)
+#define APP_HEAP_SIZE_MIN     (256)
+#define APP_HEAP_SIZE_MAX     (512 * 1024 * 1024)
 
 /* Default wasm stack size of each app */
 #if defined(BUILD_TARGET_X86_64) || defined(BUILD_TARGET_AMD_64)
@@ -245,13 +247,17 @@
 #define WASM_THREAD_AUX_STACK_SIZE_MIN (256)
 
 /* Default/min/max stack size of each app thread */
-#if !defined(BH_PLATFORM_ZEPHYR) && !defined(BH_PLATFORM_ALIOS_THINGS) \
-    && !defined(BH_PLATFORM_ESP_IDF) && !defined(BH_PLATFORM_OPENRTOS)
+// clang-format off
+#if !defined(BH_PLATFORM_ZEPHYR) \
+    && !defined(BH_PLATFORM_ALIOS_THINGS) \
+    && !defined(BH_PLATFORM_ESP_IDF) \
+    && !defined(BH_PLATFORM_OPENRTOS)
+// clang-format on
 #define APP_THREAD_STACK_SIZE_DEFAULT (32 * 1024)
-#define APP_THREAD_STACK_SIZE_MIN (24 * 1024)
+#define APP_THREAD_STACK_SIZE_MIN     (24 * 1024)
 #else
 #define APP_THREAD_STACK_SIZE_DEFAULT (6 * 1024)
-#define APP_THREAD_STACK_SIZE_MIN (4 * 1024)
+#define APP_THREAD_STACK_SIZE_MIN     (4 * 1024)
 #endif
 #if !defined(APP_THREAD_STACK_SIZE_MAX)
 #define APP_THREAD_STACK_SIZE_MAX (8 * 1024 * 1024)
@@ -284,4 +290,3 @@
 #endif
 
 #endif /* end of _CONFIG_H_ */
-
